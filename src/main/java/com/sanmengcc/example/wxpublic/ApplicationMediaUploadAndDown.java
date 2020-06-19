@@ -1,4 +1,4 @@
-package com.wxpublic;
+package com.sanmengcc.example.wxpublic;
 
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSONObject;

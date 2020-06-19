@@ -1,4 +1,4 @@
-package com.wxpublic;
+package com.sanmengcc.example.wxpublic;
 
 /**
  * description: WxPublicSendMediaVo <br>

@@ -1,4 +1,4 @@
-package com.sanmengccc.example.date;
+package com.sanmengcc.example.date;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
