@@ -9,6 +9,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * description: FileUtil <br>
@@ -77,5 +80,13 @@ public class FileUtil {
         return out.toByteArray();
     }
 
+    public static void byte2File(byte[] bytes,String paths){
+        Path path = Paths.get(paths);
+        try {
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

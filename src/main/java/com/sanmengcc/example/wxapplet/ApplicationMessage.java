@@ -3,8 +3,6 @@ package com.sanmengcc.example.wxapplet;
 import com.alibaba.fastjson.JSONObject;
 import com.sanmengcc.example.util.FileUtil;
 import com.sanmengcc.example.util.HttpUtil;
-import com.sanmengcc.example.util.WxMiniUtil;
-import okhttp3.*;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -19,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -39,7 +38,83 @@ public class ApplicationMessage {
 
 
     public static void main(String[] args) throws IOException {
-        sendMessage();
+        updateActivityForm();
+    }
+
+    /**
+     * @Description 修改动态消息
+     * @Author  sanmengc
+     * @Date   2020/7/3 8:50
+     */
+    public static void updateActivityForm() throws IOException {
+        String url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/updatablemsg/send?access_token=" + accessToken;
+
+        JSONObject param = new JSONObject();
+        param.put("activity_id", "sanmengcc");
+        param.put("target_state", "0");
+
+        JSONObject template_info = new JSONObject();
+        List<JSONObject> parameter_list = Arrays.asList(new JSONObject() {{
+            put("name", "sanmenggc");//注意一下参数的格式String 还是Number
+            put("value", "sanmenggc");
+        }});
+        template_info.put("parameter_list", parameter_list);
+
+        HttpUtil.get(url);
+    }
+
+    /**
+     * @Description 创建动态消息
+     * @Author  sanmengc
+     * @Date   2020/7/3 8:50
+     */
+    public static void createActivityForm() throws IOException {
+        String url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/activityid/create?access_token=" + accessToken;
+        HttpUtil.get(url);
+    }
+
+    /**
+     * @Description 下发小程序和公众号统一的服务消息
+     * @Author  sanmengcc
+     * @Date   2020/7/3 8:34
+     */
+    public static void uniform_send() throws IOException {
+        String url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + accessToken;
+        JSONObject param = new JSONObject();
+        param.put("touser", "sanmengccc");
+
+        //小程序结构体
+        JSONObject weapp_template_msg = new JSONObject();
+        weapp_template_msg.put("template_id", "sanmengctid");
+        weapp_template_msg.put("page", "page/page/index");
+        weapp_template_msg.put("form_id", "SHIHASIDHASIDHIOAS");
+
+        JSONObject weapp_template_msg_data = new JSONObject();
+        weapp_template_msg_data.put("keyword1", new JSONObject(){{
+            put("value", "339208499");}});
+        weapp_template_msg.put("data", weapp_template_msg_data);
+        weapp_template_msg.put("emphasis_keyword", "sanmengccc");
+        param.put("weapp_template_msg", weapp_template_msg);
+
+        //公众号结构体
+        JSONObject mp_template_msg = new JSONObject();
+        mp_template_msg.put("appid", "sanmengcc");
+        mp_template_msg.put("url", "https://www.baidu.com");
+        mp_template_msg.put("template_id", "SHIHASIDHASIDHIOAS");
+        JSONObject miniprogram = new JSONObject();
+        miniprogram.put("appid", "sanmengcc");
+        miniprogram.put("pagepath", "/page/index");
+        mp_template_msg.put("miniprogram", miniprogram);
+
+        JSONObject mp_template_msg_data = new JSONObject();
+        mp_template_msg_data.put("first", new JSONObject() {{
+            put("value", "恭喜你购买成功");
+            put("color", "#173177");
+        }});
+        mp_template_msg.put("data", mp_template_msg_data);
+
+        HttpUtil.post(url, param.toJSONString());
+
     }
 
     /**
