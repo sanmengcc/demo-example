@@ -1,23 +1,22 @@
 package com.sanmengcc.example.thread.aqs.atomic;
 
-import java.util.concurrent.atomic.AtomicIntegerArray;
+import java.util.concurrent.atomic.AtomicLongArray;
 
 /**
- * @ClassNameAtomicIntegerArrayTest
+ * @ClassNameAtomicLongArrayTest
  * @Description
- * @Author sanmeng
- * @Date2020/7/6 16:05
+ * @Author sanmengcc
+ * @Date2020/7/6 17:14
  * @Version V1.0
  **/
-public class AtomicIntegerArrayTest {
-
+public class AtomicLongArrayTest {
     public static void main(String[] args) {
 
         //构造函数
-        AtomicIntegerArray a1 = new AtomicIntegerArray(1);
+        AtomicLongArray a1 = new AtomicLongArray(1);
         System.out.println(a1.get(0));
-        int[] a3 = {1,2,3};
-        AtomicIntegerArray a2 = new AtomicIntegerArray(a3);
+        long[] a3 = {1,2,3};
+        AtomicLongArray a2 = new AtomicLongArray(a3);
         System.out.println(a2.get(0));
         System.out.println(a2.get(1));
 
@@ -29,7 +28,7 @@ public class AtomicIntegerArrayTest {
          * 4.使用索引i位置上的数据进行IntBinaryOperator函数操作
          * 5.再执行get
          */
-        AtomicIntegerArray array = new AtomicIntegerArray(1);
+        AtomicLongArray array = new AtomicLongArray(1);
         array.accumulateAndGet(0, 2, (x, y) -> x + y);
         System.out.println(array.get(0));
 
@@ -100,7 +99,7 @@ public class AtomicIntegerArrayTest {
          * 2.再执行IntUnaryOperator函数
          */
         System.out.println(array.getAndUpdate(0, x -> x - 20));
-        
+
         //incrementAndGet
         /*
          * 1.先对指定索引处的值自增1
