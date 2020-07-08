@@ -146,6 +146,17 @@ public class DateTypeRangeUtil {
         System.out.println(getStartOrEndDayOfYear(LocalDate.now(), false));
         System.out.println(getStartOrEndDayOfYear(LocalDate.now(), true));
         System.out.println(getStartOrEndDayOfYear(null, true));
+        LocalDateTime localDateTime = LocalDateTime.now();
+        localDateTime.getDayOfMonth();
+        System.out.println(localDateTime.minusDays(1));
+
+        System.out.println(LocalDateTime
+                .of(LocalDate.now().minusDays(1), LocalTime.MIN)
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        System.out.println(LocalDateTime
+                .of(LocalDate.now().plusDays(1), LocalTime.MAX)
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+
     }
 
 }
